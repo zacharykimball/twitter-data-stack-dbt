@@ -1,0 +1,115 @@
+version: 2
+
+models:
+  - name: fct_tweets
+    description: This table has facts about all tweets ("statuses") being tracked historically
+
+    columns:
+      - name: status_id
+        description: This is a unique identifier for a tweet
+        tests:
+          - unique
+          - not_null
+
+      - name: user_id
+        description: User's unique ID
+        tests:
+          - not_null
+
+      - name: full_text
+        description: Full text of the tweet (extended mode)
+        tests:
+          - not_null
+
+      - name: is_quote_status
+        description: Boolean for whether this tweet is a retweet
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+              quote: false
+
+      - name: created_at
+        description: Timestamp of tweet
+        tests:
+          - not_null
+
+  - name: dim_users
+    description: This table has dimension about all users being tracked historically
+
+    columns:
+      - name: user_id
+        description: User's unique ID
+        tests:
+          - unique
+          - not_null
+
+      - name: latest_screen_name
+        description: User's screen name as of their latest tweet
+        tests:
+          - not_null
+
+      - name: first_tweet_at
+        description: Timestamp of user's first recorded tweet
+        tests:
+          - not_null
+
+      - name: last_tweet_at
+        description: Timestamp of user's last recorded tweet
+        tests:
+          - not_null
+
+      - name: days_since_last_tweet
+        description: Number of days since user has tweeted
+        tests:
+          - not_null
+
+      - name: days_tracked
+        description: Number of days user has been tracked in BQ
+        tests:
+          - not_null
+
+      - name: number_tweets_total
+        description: Number of total tweets tracked for this user
+        tests:
+          - not_null
+
+      - name: number_quote_tweets_l28
+        description: Number of quote tweets tracked for this user over the last 28 days
+        tests:
+          - not_null
+
+      - name: number_reply_tweets_l28
+        description: Number of reply tweets tracked for this user over the last 28 days
+        tests:
+          - not_null
+      
+      - name: number_organic_tweets_l28
+        description: Number of 'organic' (non-quote, non-reply) tweets tracked for this user over the last 28 days
+        tests:
+          - not_null
+
+      - name: number_total_tweets_l28
+        description: Number of total tweets tracked for this user over the last 28 days
+        tests:
+          - not_null
+
+      - name: number_quote_tweets_l7
+        description: Number of quote tweets tracked for this user over the last 7 days
+        tests:
+          - not_null
+
+      - name: number_reply_tweets_l7
+        description: Number of reply tweets tracked for this user over the last 7 days
+        tests:
+          - not_null
+      
+      - name: number_organic_tweets_l7
+        description: Number of 'organic' (non-quote, non-reply) tweets tracked for this user over the last 7 days
+        tests:
+          - not_null
+
+      - name: number_total_tweets_l7
+        description: Number of total tweets tracked for this user over the last 7 days
+        tests:
+          - not_null

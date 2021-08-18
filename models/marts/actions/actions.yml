@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: trigger_actions
+    description: This table generates a set of suggested actions to trigger
+
+    columns:
+      - name: user_id
+        description: User's unique ID
+        tests:
+          - not_null
+          - unique
+
+      - name: latest_screen_name
+        description: Latest screen name of user
+        tests:
+          - not_null
+
+      - name: days_since_last_tweet
+        description: Days since user's last tweet
+        tests:
+          - not_null
+
+      - name: average_daily_activity_baseline
+        description: Baseline activity number
+        tests:
+          - not_null
+
+      - name: average_daily_activity_recent
+        description: Recent activity number
+        tests:
+          - not_null
+
+      - name: actioned
+        description: Wheter this row has been actioned
+        tests:
+          - not_null
+          - accepted_values:
+              values: [true, false]
+              quote: false
